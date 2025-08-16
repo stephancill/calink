@@ -1,5 +1,6 @@
 import { BlockiesAvatar } from "@/components/ui/blockies-avatar";
 import { Card } from "@/components/ui/card";
+import { DownloadButton } from "@/components/ui/download-button";
 import { clients } from "@/lib/clients";
 import { formatDate, getAuthorInfo, processReferences } from "@/lib/utils";
 import { fetchComment } from "@ecp.eth/sdk/indexer";
@@ -94,18 +95,29 @@ export default async function CommentPage({
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-8">
         <Card className="p-8 relative">
-          {/* External Link Icon - Top Right */}
-          {customClientUrl && (
-            <a
-              href={customClientUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted/50 transition-colors duration-200 group"
-              title={`Open in ${customClientTitle || "external app"}`}
-            >
-              <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
-            </a>
-          )}
+          {/* Action Buttons - Top Right */}
+          <div className="absolute top-4 right-4 flex items-center gap-2">
+            {/* Download Button */}
+            <DownloadButton
+              url={`/c/${id}/opengraph-image`}
+              filename={`ecp-comment-${id}.png`}
+              className="p-2 rounded-lg hover:bg-muted/50 transition-colors duration-200 group"
+              title="Download image"
+            />
+
+            {/* External Link Icon */}
+            {customClientUrl && (
+              <a
+                href={customClientUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg hover:bg-muted/50 transition-colors duration-200 group"
+                title={`Open in ${customClientTitle || "external app"}`}
+              >
+                <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+              </a>
+            )}
+          </div>
 
           {/* Author Section */}
           <div className="flex items-center gap-2">
