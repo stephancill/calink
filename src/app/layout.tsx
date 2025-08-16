@@ -16,6 +16,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "calink",
   description: "A client-agnostic ECP linker with OpenGraph support.",
+  openGraph: {
+    title: "calink",
+    description: "A client-agnostic ECP linker with OpenGraph support.",
+    images: ["/og.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "calink",
+    description: "A client-agnostic ECP linker with OpenGraph support.",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({
