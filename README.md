@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# calink
+
+A client-agnostic ECP (Ethereum Comment Protocol) linker with OpenGraph support.
+
+## Overview
+
+calink is a web application that provides shareable links for ECP comments with rich OpenGraph metadata and client-agnostic viewing. It allows users to view ECP comments in a clean, responsive interface while providing links to open the comment in their preferred ECP client.
+
+## Features
+
+- 🔗 **Client-Agnostic**: View ECP comments without being tied to a specific client
+- 📱 **OpenGraph Support**: Rich social media previews with comment content and author info
+- 🎭 **Custom Clients**: Support for custom client integration via URL parameters
+
+## Pages
+
+### `/c/<commentId>`
+
+View an individual ECP comment with:
+
+#### URL Parameters
+
+- `clientTitle` - Custom client name
+- `clientLogo` - Custom client logo URL
+- `clientUrl` - Custom client URL to open the comment
+
+Example with custom client:
+
+```
+/c/0x123...?clientTitle=MyApp&clientLogo=https://example.com/logo.png&clientUrl=https://myapp.com/comment/0x123...
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ or Bun
+- Git
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd calink
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun install
+# or
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Run the development server:
 
-## Learn More
+```bash
+bun dev
+# or
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build for Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+bun run build
+bun start
+# or
+npm run build
+npm start
+```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── c/[id]/
+│   │   ├── page.tsx          # Comment page component
+│   │   └── opengraph-image.tsx # Dynamic OpenGraph images
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx             # Home page
+├── components/
+│   └── ui/                  # Reusable UI components
+├── lib/
+│   ├── clients.ts           # Client configurations
+│   └── utils.ts            # Utility functions
+└── types/
+    └── blockies.d.ts       # Type definitions
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+
+### Adding New Clients
+
+To add support for a new ECP client, update the `clients` array in `src/lib/clients.ts`:
+
+```typescript
+{
+  title: "New Client",
+  id: "newclient",
+  logo: "/clients/newclient.png",
+  getLink({ chainId, commentId }) {
+    return `https://newclient.com/comment/${commentId}`;
+  },
+}
+```
+
+### Customizing OpenGraph Images
+
+The dynamic OpenGraph images are generated in `src/app/c/[id]/opengraph-image.tsx`. Modify this file to customize how comment previews appear on social media.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+[Add your license information here]
+
+## Links
+
+- [ECP Documentation](https://ecp.eth.limo)
