@@ -148,7 +148,7 @@ export default async function CommentPage({
           {/* Content */}
           <div>
             <div
-              className="text-base leading-relaxed"
+              className="text-base leading-relaxed whitespace-pre-wrap"
               style={{
                 wordWrap: "break-word",
                 overflowWrap: "break-word",
